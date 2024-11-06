@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : CharacterController
 {
     private PlayerStats stats;
     private Vector2 curMovementInput;
+    private Vector2 aimDirection;
 
+    private bool aimOption = false;
     private Rigidbody _rigidbody;
 
     private void Start()
@@ -16,24 +18,39 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
+        //Move();
+
+        //if (aimOption)
+        //{
+        //    Aim();
+        //}
     }
 
-    private void Move()
-    {
-        _rigidbody.velocity = curMovementInput * stats.moveSpeed;
-    }
+    //private void Move()
+    //{
+    //    _rigidbody.velocity = curMovementInput * stats.moveSpeed;
+    //}
 
-    public void OnMoveInput(InputAction.CallbackContext context)
-    {
-        if(context.phase == InputActionPhase.Performed)
-        {
-            curMovementInput = context.ReadValue<Vector2>();
-        }
+    //public void OnMoveInput(InputAction.CallbackContext context)
+    //{
+    //    if(context.phase == InputActionPhase.Performed)
+    //    {
+    //        curMovementInput = context.ReadValue<Vector2>();
+    //    }
 
-        if(context.phase == InputActionPhase.Canceled)
-        {
-            curMovementInput = Vector2.zero;
-        }
-    }
+    //    if(context.phase == InputActionPhase.Canceled)
+    //    {
+    //        curMovementInput = Vector2.zero;
+    //    }
+    //}
+
+    //private void Aim()
+    //{
+        
+    //}
+
+    //public void OnAimInput(InputAction.CallbackContext context)
+    //{
+    //    aimDirection = context.ReadValue<Vector2>();   
+    //}
 }
