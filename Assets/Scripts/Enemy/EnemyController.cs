@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class EnemyController : CharacterController
+public class EnemyController : MonoBehaviour
 {
 
 }

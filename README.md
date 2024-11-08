@@ -1,2 +1,7 @@
 # Challenge_Project
- ê¾¸ì¤€ì‹¤ìŠµ í”„ë¡œì íŠ¸
+ ²ÙÁØ½Ç½À ÇÁ·ÎÁ§Æ®
+
+ ¿ÍÀÌ¾î ÇÁ·¹ÀÓ :
+
+ https://www.figma.com/board/PSeaCS7bHl8vNPEqKfjobb/Untitled?node-id=0-1&node-type=canvas&t=rvjxPVD55cY2tMdg-0
+
