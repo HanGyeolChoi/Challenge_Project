@@ -22,4 +22,7 @@ public class WeaponSO : ScriptableObject
     public float range;
     public int price;
 
+    [Header("Projectile")]
+    public float projectileSpeed;
+    public int penetrationNum;
 }

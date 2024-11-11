@@ -29,6 +29,10 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void LateUpdate()
+    {
+        cameraContainer.transform.position = transform.position;
+    }
     private void Move()
     {
         _rigidbody.velocity = curMovementInput * stats.moveSpeed;
