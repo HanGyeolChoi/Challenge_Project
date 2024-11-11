@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum WeaponType
@@ -22,6 +20,6 @@ public class WeaponSO : ScriptableObject
     public float damage;
     public float attackRate;
     public float range;
-    public float price;
+    public int price;
 
 }
