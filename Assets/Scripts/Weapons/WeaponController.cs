@@ -1,6 +1,5 @@
-using System.Linq;
+using System;
 using UnityEngine;
-
 
 public class WeaponController : MonoBehaviour
 {
@@ -9,21 +8,34 @@ public class WeaponController : MonoBehaviour
     private float timeLastAttack = -30f;
     private Collider2D[] colliders;
     private Transform closestEnemy;
+    private SpriteRenderer renderer;
 
+    private Vector2 direction;
+    //private float distance;
+
+    public event Action attackAction;
 
     private void Update()
     {
-        //TODO : 만약 적이 사정거리 내로 들어오면 공격
+        //if(aimOption)     // aim option 이 켜져 있을 때 마우스 방향으로 무기 회전
+        //{
+        //  direction = mouse.position - transform.position;
+        //  RotateWeapon();
+        //}
+        //
+        
         colliders = Physics2D.OverlapCircleAll(transform.position, weaponSO.range, attackLayer);        // 사거리 내 적 유무 체크
-        if (colliders.Length <= 0)
+
+        if (colliders.Length <= 0)  // 사거리 내 적이 없을 시
         {
             return;
         }
         else
         {
-            if (Time.time - timeLastAttack > weaponSO.attackRate)
+            closestEnemy = FindClosestEnemy();
+            RotateWeapon();
+            if (Time.time - timeLastAttack > weaponSO.attackRate)   
             {
-                closestEnemy = FindClosestEnemy();
                 Attack();
             }
         }
@@ -41,13 +53,22 @@ public class WeaponController : MonoBehaviour
                 shortestDist = Vector2.Distance(transform.position, colliders[i].transform.position);
             }
         }
-
+        direction = (col.transform.position - transform.position).normalized;
         return col.transform;
+    }
+
+    private void RotateWeapon()
+    {
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        transform.eulerAngles = new Vector3(0, 0, angle);
+
+        renderer.flipX = MathF.Abs(angle) > 90f;
     }
     private void Attack()
     {
         timeLastAttack = Time.time;
-        //TODO : 공격 애니메이션 재생, 원거리 무기는 투사체 발사
+        attackAction?.Invoke();
+        //TODO : 원거리 무기는 투사체 발사
     }
 
 
@@ -56,6 +77,7 @@ public class WeaponController : MonoBehaviour
         if (Time.time - timeLastAttack > weaponSO.attackRate)
         {
             timeLastAttack = Time.time;
+            attackAction?.Invoke();
             //TODO : 에임쪽으로 공격하는 기능 구현
         }
     }

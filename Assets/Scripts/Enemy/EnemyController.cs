@@ -34,6 +34,10 @@ public class EnemyController : MonoBehaviour
         //}
     }
 
+    private void Move()
+    {
+
+    }
 
 
     private void GetEnemyDirection()
