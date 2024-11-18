@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void Move()
     {
-        _rigidbody.velocity = curMovementInput * stats.moveSpeed;
+        _rigidbody.velocity = curMovementInput * stats.speed;
     }
 
     public void OnMoveInput(InputAction.CallbackContext context)

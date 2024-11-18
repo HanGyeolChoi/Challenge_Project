@@ -340,7 +340,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2377e076bf9e594ba68b1c3df8dc004, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 0}
   controller: {fileID: 0}
 --- !u!114 &278046669
 MonoBehaviour:
@@ -477,7 +476,7 @@ GameObject:
   - component: {fileID: 461897651}
   - component: {fileID: 461897650}
   m_Layer: 6
-  m_Name: Square
+  m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -543,7 +542,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -554,7 +553,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &461897652
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -949,7 +948,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1124973318}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: WeaponContainers
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -27,3 +27,8 @@
  무기 데이터를 ScriptableObject로 저장 예정 - WeaponSO.cs
  
  소유 아이템과 무기 데이터를 저장하는 DataManager 구현 예정 - Manager/DataManager.cs
+
+
+ 2주차 진행 상황:
+
+ 무기에 가까운 적의 위치에 따라 돌아가는 기능 추가 - WeaponController.cs

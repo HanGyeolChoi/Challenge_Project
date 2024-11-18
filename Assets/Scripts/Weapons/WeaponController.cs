@@ -8,12 +8,14 @@ public class WeaponController : MonoBehaviour
     private float timeLastAttack = -30f;
     private Collider2D[] colliders;
     private Transform closestEnemy;
-    private SpriteRenderer renderer;
+    private SpriteRenderer _renderer;
 
     private Vector2 direction;
     //private float distance;
 
     public event Action attackAction;
+    private bool isAttacking = false;
+    [SerializeField] private LayerMask enemyLayer;
 
     private void Update()
     {
@@ -62,17 +64,18 @@ public class WeaponController : MonoBehaviour
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.eulerAngles = new Vector3(0, 0, angle);
 
-        renderer.flipX = MathF.Abs(angle) > 90f;
+        _renderer.flipX = MathF.Abs(angle) > 90f;
     }
-    private void Attack()
+    public void Attack()
     {
         timeLastAttack = Time.time;
         attackAction?.Invoke();
         //TODO : 원거리 무기는 투사체 발사
+        isAttacking = true;
     }
 
 
-    public void Attack(Vector2 aim)
+    public void AttackToAim(Vector2 aim)
     {
         if (Time.time - timeLastAttack > weaponSO.attackRate)
         {
@@ -80,5 +83,22 @@ public class WeaponController : MonoBehaviour
             attackAction?.Invoke();
             //TODO : 에임쪽으로 공격하는 기능 구현
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (weaponSO.type == WeaponType.Melee && isAttacking && Utils.IsLayerMatched(enemyLayer, collision.gameObject.layer))
+            // 근접 무기가 공격중이고, 적이 충돌 할 때 데미지 입음
+        {
+            //if(collision.gameObject.TryGetComponent<EnemyController>(out EnemyController controller))
+            //{
+            //      controller.Damage(weaponStat.damage);
+            //}
+        }
+    }
+
+    public void AttackEnd()     // 
+    {
+        isAttacking = false;
     }
 }

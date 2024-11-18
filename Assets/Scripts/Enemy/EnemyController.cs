@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -6,6 +7,7 @@ public class EnemyController : MonoBehaviour
     private Transform playerTransform;
     private Vector2 direction;
     private float distance;
+    public event Action onMoveAction;
 
     private void Start()
     {
@@ -36,7 +38,7 @@ public class EnemyController : MonoBehaviour
 
     private void Move()
     {
-
+        onMoveAction?.Invoke();
     }
 
 
