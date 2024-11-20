@@ -1,6 +1,8 @@
 ﻿
 
-public class PlayerStats
+using UnityEngine;
+
+public class PlayerStats : MonoBehaviour
 {
     public int health = 100;
     public float speed = 5f;
@@ -12,4 +14,9 @@ public class PlayerStats
     public int penetration = 0;
     public int projectileNum = 0;
     public float projectileSpeed = 1f;
+
+    private void Start()
+    {
+        CharacterManager.Instance.Player.stats = this;
+    }
 }

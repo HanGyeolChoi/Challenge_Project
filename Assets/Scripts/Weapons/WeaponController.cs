@@ -15,8 +15,12 @@ public class WeaponController : MonoBehaviour
 
     public event Action attackAction;
     private bool isAttacking = false;
-    [SerializeField] private LayerMask enemyLayer;
 
+    private void Start()
+    {
+        _renderer = GetComponentInChildren<SpriteRenderer>();
+        
+    }
     private void Update()
     {
         //if(aimOption)     // aim option 이 켜져 있을 때 마우스 방향으로 무기 회전
@@ -25,7 +29,12 @@ public class WeaponController : MonoBehaviour
         //  RotateWeapon();
         //}
         //
-        
+
+        UpdateWeaponState();
+    }
+
+    private void UpdateWeaponState()
+    {
         colliders = Physics2D.OverlapCircleAll(transform.position, weaponSO.range, attackLayer);        // 사거리 내 적 유무 체크
 
         if (colliders.Length <= 0)  // 사거리 내 적이 없을 시
@@ -36,14 +45,14 @@ public class WeaponController : MonoBehaviour
         {
             closestEnemy = FindClosestEnemy();
             RotateWeapon();
-            if (Time.time - timeLastAttack > weaponSO.attackRate)   
+            if (CanAttack())
             {
                 Attack();
             }
         }
     }
 
-    private Transform FindClosestEnemy()    // 가장 가까운 적 Transform 반환
+    private Transform FindClosestEnemy()    // 가장 가까운 적 Transform 반환, direction(무기 방향)을 그 적에게 향하게 함
     {
         Collider2D col = colliders[0];
         float shortestDist = Vector2.Distance(transform.position, colliders[0].transform.position);
@@ -87,7 +96,7 @@ public class WeaponController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (weaponSO.type == WeaponType.Melee && isAttacking && Utils.IsLayerMatched(enemyLayer, collision.gameObject.layer))
+        if (weaponSO.type == WeaponType.Melee && isAttacking && Utils.IsLayerMatched(attackLayer, collision.gameObject.layer))
             // 근접 무기가 공격중이고, 적이 충돌 할 때 데미지 입음
         {
             //if(collision.gameObject.TryGetComponent<EnemyController>(out EnemyController controller))
@@ -100,5 +109,10 @@ public class WeaponController : MonoBehaviour
     public void AttackEnd()     // 
     {
         isAttacking = false;
+    }
+
+    private bool CanAttack()    // 가장 가까운 적이 사정거리 내에 있음 + 공격 쿨타임 지남
+    {
+        return (Vector2.Distance(transform.position, closestEnemy.position) < weaponSO.range && Time.time - timeLastAttack > weaponSO.attackRate);
     }
 }
