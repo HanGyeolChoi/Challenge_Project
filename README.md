@@ -31,4 +31,14 @@
 
  2주차 진행 상황:
 
- 무기에 가까운 적의 위치에 따라 돌아가는 기능 추가 - WeaponController.cs
+ 무기에 가까운 적의 위치에 따라 돌아가는 기능 추가 - WeaponController.cs - 현재 작동 안함
+
+ 3주차 진행 상황:
+
+ 적이 무기 사정거리 내로 들어오면 공격 animation 실행 - WeaponController.cs, WeaponAnimationController.cs  - 공격한 뒤 원래대로 돌아가도록 구현 해야함
+
+ 테스트용 무기 적용
+
+ 각 캐릭터의 체력 시스템을 나타내기 위한 객체 HealthSystem 생성 - HealthSystem.cs
+
+ 게임 진행을 위한 GameManager 작성 중 - GameManager.cs

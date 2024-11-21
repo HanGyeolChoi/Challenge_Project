@@ -12,5 +12,6 @@ public class WeaponAnimationController : AnimationController
     private void Attacking()
     {
         animator.SetTrigger("Attack");
+        
     }
 }

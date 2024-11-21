@@ -13,10 +13,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Image aimImage;
     [SerializeField] private GameObject cameraContainer;
 
+    private HealthSystem healthSystem;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         stats = CharacterManager.Instance.Player.stats;
+        healthSystem = GetComponent<HealthSystem>();
+        healthSystem.SetMaxHealth(stats.health);
     }
 
     private void FixedUpdate()

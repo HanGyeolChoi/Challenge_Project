@@ -9,7 +9,7 @@ public class WeaponController : MonoBehaviour
     private Collider2D[] colliders;
     private Transform closestEnemy;
     private SpriteRenderer _renderer;
-
+    private Transform container;
     private Vector2 direction;
     //private float distance;
 
@@ -19,7 +19,7 @@ public class WeaponController : MonoBehaviour
     private void Start()
     {
         _renderer = GetComponentInChildren<SpriteRenderer>();
-        
+        //container = GetComponentInParent<Transform>(); - Find Transform of container
     }
     private void Update()
     {
@@ -35,7 +35,7 @@ public class WeaponController : MonoBehaviour
 
     private void UpdateWeaponState()
     {
-        colliders = Physics2D.OverlapCircleAll(transform.position, weaponSO.range, attackLayer);        // 사거리 내 적 유무 체크
+        colliders = Physics2D.OverlapCircleAll(transform.position, weaponSO.range + 2, attackLayer);        // 사거리 + 2 범위 내 적 유무 체크
 
         if (colliders.Length <= 0)  // 사거리 내 적이 없을 시
         {
@@ -71,15 +71,20 @@ public class WeaponController : MonoBehaviour
     private void RotateWeapon()
     {
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        transform.eulerAngles = new Vector3(0, 0, angle);
+        container.rotation = Quaternion.Euler(0, 0, angle);
 
         _renderer.flipX = MathF.Abs(angle) > 90f;
+        _renderer.flipY = _renderer.flipX;
     }
     public void Attack()
     {
         timeLastAttack = Time.time;
         attackAction?.Invoke();
-        //TODO : 원거리 무기는 투사체 발사
+        if(weaponSO.type == WeaponType.Ranged)  //TODO : 원거리 무기는 투사체 발사
+        {
+            ShootProjectile();
+        }
+        
         isAttacking = true;
     }
 
@@ -105,6 +110,12 @@ public class WeaponController : MonoBehaviour
             //}
         }
     }
+
+    private void ShootProjectile()
+    {
+
+    }
+
 
     public void AttackEnd()     // 
     {

@@ -8,10 +8,12 @@ public class EnemyController : MonoBehaviour
     private Vector2 direction;
     private float distance;
     public event Action onMoveAction;
+    private HealthSystem healthSystem;
 
     private void Start()
     {
         playerTransform = CharacterManager.Instance.Player.transform;
+        healthSystem = GetComponent<HealthSystem>();
     }
 
     private void FixedUpdate()
